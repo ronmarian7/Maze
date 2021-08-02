@@ -1,30 +1,28 @@
 import queue
 
-
-def createMaze():
+def createMaze1():
     maze = []
-    maze.append(["#", "#", "#", "#", "#", "O", "#"])
-    maze.append(["#", " ", " ", " ", "#", " ", "#"])
-    maze.append(["#", " ", "#", " ", "#", " ", "#"])
-    maze.append(["#", " ", "#", " ", " ", " ", "#"])
-    maze.append(["#", " ", "#", "#", "#", " ", "#"])
-    maze.append(["#", " ", " ", " ", "#", " ", "#"])
-    maze.append(["#", "#", "#", "#", "#", "X", "#"])
+    maze.append(["#","#", "#", "#", "#", "O","#"])
+    maze.append(["#"," ", " ", " ", "#", " ","#"])
+    maze.append(["#"," ", "#", " ", "#", " ","#"])
+    maze.append(["#"," ", "#", " ", " ", " ","#"])
+    maze.append(["#"," ", "#", "#", "#", " ","#"])
+    maze.append(["#"," ", " ", " ", "#", " ","#"])
+    maze.append(["#","#", "#", "#", "#", "X","#"])
 
     return maze
 
-
 def createMaze2():
     maze = []
-    maze.append(["#", "#", "#", "#", "#", "O", "#", "#", "#"])
-    maze.append(["#", " ", " ", " ", " ", " ", " ", " ", "#"])
-    maze.append(["#", " ", "#", "#", " ", "#", "#", " ", "#"])
-    maze.append(["#", " ", "#", " ", " ", " ", "#", " ", "#"])
-    maze.append(["#", " ", "#", " ", "#", " ", "#", " ", "#"])
-    maze.append(["#", " ", "#", " ", "#", " ", "#", " ", "#"])
-    maze.append(["#", " ", "#", " ", "#", " ", "#", "#", "#"])
-    maze.append(["#", " ", " ", " ", " ", " ", " ", " ", "#"])
-    maze.append(["#", "#", "#", "#", "#", "#", "#", "X", "#"])
+    maze.append(["#","#", "#", "#", "#", "O", "#", "#", "#"])
+    maze.append(["#"," ", " ", " ", " ", " ", " ", " ", "#"])
+    maze.append(["#"," ", "#", "#", " ", "#", "#", " ", "#"])
+    maze.append(["#"," ", "#", " ", " ", " ", "#", " ", "#"])
+    maze.append(["#"," ", "#", " ", "#", " ", "#", " ", "#"])
+    maze.append(["#"," ", "#", " ", "#", " ", "#", " ", "#"])
+    maze.append(["#"," ", "#", " ", "#", " ", "#", "#", "#"])
+    maze.append(["#"," ", " ", " ", " ", " ", " ", " ", "#"])
+    maze.append(["#","#", "#", "#", "#", "#", "#", "X", "#"])
 
     return maze
 
@@ -50,7 +48,7 @@ def printMaze(maze, path=""):
         elif move == "D":
             j += 1
         pos.add((j, i))
-
+    
     for j, row in enumerate(maze):
         for i, col in enumerate(row):
             if (j, i) in pos:
@@ -58,6 +56,7 @@ def printMaze(maze, path=""):
             else:
                 print(col + " ", end="")
         print()
+        
 
 
 def valid(maze, moves):
@@ -80,7 +79,7 @@ def valid(maze, moves):
         elif move == "D":
             j += 1
 
-        if not (0 <= i < len(maze[0]) and 0 <= j < len(maze)):
+        if not(0 <= i < len(maze[0]) and 0 <= j < len(maze)):
             return False
         elif (maze[j][i] == "#"):
             return False
@@ -121,11 +120,21 @@ def findEnd(maze, moves):
 nums = queue.Queue()
 nums.put("")
 add = ""
-maze = createMaze2()
 
-while not findEnd(maze, add):
+print("which maze would you like to crack?")
+print("1)")
+printMaze(createMaze1())
+print("2)")
+printMaze(createMaze2())
+choice = input("Enter 1 or 2:")
+
+if choice == "1":
+    maze = createMaze1()
+else:
+    maze = createMaze2()
+
+while not findEnd(maze, add): 
     add = nums.get()
-    # print(add)
     for j in ["L", "R", "U", "D"]:
         put = add + j
         if valid(maze, put):
